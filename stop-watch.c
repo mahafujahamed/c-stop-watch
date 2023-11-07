@@ -1,19 +1,22 @@
-#include<stdio.h>
-#define CYCLE 5
+#include <stdio.h>
 
-#ifdef _WIN64 && _WIN32
-#include<conio.h>
-#define sleep(x) Sleep(x*1000)
+#ifdef _WIN32
+#include <conio.h>
+#include <windows.h>
+#define sleep(x) Sleep(x * 1000)
+#define CLEAR_SCREEN() system("cls")
 #else
-#define clrscr()
-#include<unistd.h>
+#include <unistd.h>
+#define CLEAR_SCREEN() printf("\033[H\033[J")
 #endif
+
+#define CYCLE 5
 int main()
 {
     int hour, minite, second;
     printf("Enter hour minite and second:\n");
     scanf("%d%d%d", &hour, &minite, &second);
-    clrscr();
+
     int h=0, m=0, s=0;
     while(1)
     {
@@ -22,12 +25,11 @@ int main()
         {
             break;
         }
-        else
-        {
-            clrscr();
+        else{
+            CLEAR_SCREEN();
         }
-        s++;
         sleep(1);
+        s++;
         if(s == CYCLE)
         {
             m++;
